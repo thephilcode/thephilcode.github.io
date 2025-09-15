@@ -11,6 +11,9 @@
 
 		<title>Ayo Philip &mdash; Web Developer Portfolio Website</title>
 
+        <link rel="preload" as="image" href="assets/img/bg.jpg">
+        <link rel="preload" as="image" href="assets/img/bg-1.jpg">
+
         <link rel="canonical" href="https://thephilcode.github.io/" />
 
 		<link
@@ -20,6 +23,82 @@
 			onerror="this.onerror=null; this.href='assets/css/bootstrap.min.css';"
             onload="this.onload=null;this.rel='stylesheet'" />
 		<link rel="preload" as="style" href="assets/css/main.css" onload="this.onload=null;this.rel='stylesheet'" />
+
+        <style>
+            body {
+                background-color: #000; /* Black background for the page */
+            }
+
+            button.hero-b {
+                position: relative;
+                color: #fff;
+                background-image: url('./assets/img/bg-1.jpg');
+                left: 50%;
+                transform: translateX(-50%);
+                border: none;
+                border-radius: 20px;
+                cursor: default;
+                padding: 15px 30px;
+                font-size: 18px;
+                overflow: hidden;
+                z-index: 1;
+            }
+
+            /* Wrapper for the border animation */
+            button.hero-b::before {
+                content: '';
+                position: absolute;
+                top: -2px;
+                left: -2px;
+                right: -2px;
+                bottom: -2px;
+                border-radius: 22px;
+                background: conic-gradient(
+                    from 0deg,
+                    #cc0000,
+                    #00cc00,
+                    #101072,
+                    #d4af37,
+                    #cc00a0,
+                    #cc0000
+                );
+                animation: rotateBorder 8s ease-in-out infinite alternate, hueRotate 20s linear infinite;
+                z-index: -1;
+            }
+
+            /* Animation to rotate the conic gradient with reversal */
+            @keyframes rotateBorder {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+
+            /* Smooth color shifting using hue-rotate */
+            @keyframes hueRotate {
+                0% {
+                    filter: hue-rotate(0deg);
+                }
+                100% {
+                    filter: hue-rotate(360deg);
+                }
+            }
+
+            /* Ensure the button's background covers the inner area to prevent gradient bleed */
+            button.hero-b::after {
+                content: '';
+                position: absolute;
+                top: 2px;
+                left: 2px;
+                right: 2px;
+                bottom: 2px;
+                background: url('./assets/img/bg-1.jpg');
+                border-radius: 18px;
+                z-index: -1;
+            }
+        </style>
 
         <noscript>
             <link 
@@ -42,12 +121,25 @@
                 It'll be live soon - stay tuned for updates!
             </p>
             <p class="text-center mb-5">In the meantime, reach me <a href="https://linktr.ee/philipayo"  target="_blank" rel="noopener norefferer"><button class="reach-me">here</button></a></p>
-            <button class="text-center hero-b p-3">Converting Coffee to Code...</button>
+            <button class="text-center hero-b p-3">Converting Coffee to Code</button>
         </main>
 
 		<script
 			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js"
 			onerror="this.onerror=null; this.src='assets/js/bootstrap.min.js';" defer></script>
-        <script src="assets/js/main.js" defer></script>
+        <script defer>
+            const button = document.querySelector('.hero-b');
+            const originalText = button.textContent;
+            const dots = ['', '.', '..', '...'];
+            let dotIndex = 0;
+
+            function updateEllipsis() {
+                button.textContent = originalText + dots[dotIndex];
+                dotIndex = (dotIndex + 1) % dots.length;
+            }
+
+            // Update ellipsis every 500ms
+            setInterval(updateEllipsis, 500);
+        </script>
 	</body>
 </html>
